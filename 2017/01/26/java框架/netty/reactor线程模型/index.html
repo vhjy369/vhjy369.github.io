@@ -91,12 +91,12 @@
 <meta property="og:site_name" content="vhjy&#39;s Blog">
 <meta property="og:description" content="1、reactor的第三种模型    将Reactor分成两部分，mainReactor负责监听server socket，accept新连接，并将建立的socket分派给subReactor，subReactor负责多路分离已建立的socket，读写网络数据，而对业务的处理则给worker线程池去处理。通常，subReactor个数和cpu个数相同 2、Netty所使用的线程模型    类似上">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://47.88.53.111:8002/netty/reactor.png">
-<meta property="og:updated_time" content="2018-02-23T09:10:54.225Z">
+<meta property="og:image" content="http://yoursite.com/images/netty/reactor.png">
+<meta property="og:updated_time" content="2018-03-13T02:33:17.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="reactor线程模型">
 <meta name="twitter:description" content="1、reactor的第三种模型    将Reactor分成两部分，mainReactor负责监听server socket，accept新连接，并将建立的socket分派给subReactor，subReactor负责多路分离已建立的socket，读写网络数据，而对业务的处理则给worker线程池去处理。通常，subReactor个数和cpu个数相同 2、Netty所使用的线程模型    类似上">
-<meta name="twitter:image" content="http://47.88.53.111:8002/netty/reactor.png">
+<meta name="twitter:image" content="http://yoursite.com/images/netty/reactor.png">
 
 
 
@@ -297,7 +297,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="vhjy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://47.88.53.111:8002/icon.jpg">
+      <meta itemprop="image" content="/images/icon.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -423,7 +423,7 @@
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><p><img src="http://47.88.53.111:8002/netty/reactor.png" alt=""><br>1、reactor的第三种模型<br>    将Reactor分成两部分，mainReactor负责监听server socket，accept新连接，并将建立的socket分派给subReactor，subReactor负责多路分离已建立的socket，读写网络数据，而对业务的处理则给worker线程池去处理。通常，subReactor个数和cpu个数相同</p>
+        <script src="/assets/js/APlayer.min.js"> </script><p><img src="/images/netty/reactor.png" alt=""><br>1、reactor的第三种模型<br>    将Reactor分成两部分，mainReactor负责监听server socket，accept新连接，并将建立的socket分派给subReactor，subReactor负责多路分离已建立的socket，读写网络数据，而对业务的处理则给worker线程池去处理。通常，subReactor个数和cpu个数相同</p>
 <p>2、Netty所使用的线程模型<br>    类似上述（去掉线程池），Netty的Boss类充当mainReactor，NioWorker类充当subReactor。<br>    在处理新来的请求时，NioWorker读取已收到的数据到ChannelBuffer中，之后触发ChannelPipeline中的ChannelHandler流，处理业务流程</p>
 
       
@@ -535,7 +535,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://47.88.53.111:8002/icon.jpg"
+                src="/images/icon.jpg"
                 alt="vhjy" />
             
               <p class="site-author-name" itemprop="name">vhjy</p>
@@ -549,7 +549,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -560,7 +560,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -571,7 +571,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -581,22 +581,6 @@
 
           
 
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/vhjy369" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:vhjy369@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
           
 
           

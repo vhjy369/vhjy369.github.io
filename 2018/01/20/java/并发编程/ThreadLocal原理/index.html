@@ -91,12 +91,12 @@
 <meta property="og:site_name" content="vhjy&#39;s Blog">
 <meta property="og:description" content="一、ThreadLocal概述 ThreadLocal提供了线程本地变量，保证访问到的变量属于当前线程，每个线程都有保存一个变量副本 ThreadLocal提供了线程隔离，将变量和线程绑定，ThreadLocal通常定义为private static  二、ThreadLocal详解&amp;#123;class12345678910111213141516171819private final int">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://47.88.53.111:8002/java/并发编程/threadLocal原理图.png">
-<meta property="og:updated_time" content="2018-02-23T09:11:58.720Z">
+<meta property="og:image" content="http://yoursite.com/images/java/并发编程/threadLocal原理图.png">
+<meta property="og:updated_time" content="2018-03-13T02:33:17.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadLocal原理">
 <meta name="twitter:description" content="一、ThreadLocal概述 ThreadLocal提供了线程本地变量，保证访问到的变量属于当前线程，每个线程都有保存一个变量副本 ThreadLocal提供了线程隔离，将变量和线程绑定，ThreadLocal通常定义为private static  二、ThreadLocal详解&amp;#123;class12345678910111213141516171819private final int">
-<meta name="twitter:image" content="http://47.88.53.111:8002/java/并发编程/threadLocal原理图.png">
+<meta name="twitter:image" content="http://yoursite.com/images/java/并发编程/threadLocal原理图.png">
 
 
 
@@ -297,7 +297,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="vhjy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://47.88.53.111:8002/icon.jpg">
+      <meta itemprop="image" content="/images/icon.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -438,7 +438,7 @@
 <p>Entry类是ThreadLocalMap的静态内部类，用于存储数据。<br><figure class="highlight java"><figcaption><span>&#123;class</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The entries in this hash map extend WeakReference, using</span></span><br><span class="line"><span class="comment"> * its main ref field as the key (which is always a</span></span><br><span class="line"><span class="comment"> * ThreadLocal object).  Note that null keys (i.e. entry.get()</span></span><br><span class="line"><span class="comment"> * == null) mean that the key is no longer referenced, so the</span></span><br><span class="line"><span class="comment"> * entry can be expunged from table.  Such entries are referred to</span></span><br><span class="line"><span class="comment"> * as "stale entries" in the code that follows.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/** The value associated with this ThreadLocal. */</span></span><br><span class="line">    Object value;</span><br><span class="line">    Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">        <span class="keyword">super</span>(k);</span><br><span class="line">        value = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>每个Entry对象都有一个ThreadLocal的弱引用作为key，<strong>可以防止内存泄漏，线程结束时，key变为不可达的对象，Entry可以被GC</strong></p>
 </blockquote>
-<h2 id="三、ThreadLocal内存泄漏问题"><a href="#三、ThreadLocal内存泄漏问题" class="headerlink" title="三、ThreadLocal内存泄漏问题"></a>三、ThreadLocal内存泄漏问题</h2><h3 id="1、实现原理"><a href="#1、实现原理" class="headerlink" title="1、实现原理"></a>1、实现原理</h3><p><img src="http://47.88.53.111:8002/java/并发编程/threadLocal原理图.png" alt=""> {width=”556px” height=”307px” title=”threadLocal原理图”}</p>
+<h2 id="三、ThreadLocal内存泄漏问题"><a href="#三、ThreadLocal内存泄漏问题" class="headerlink" title="三、ThreadLocal内存泄漏问题"></a>三、ThreadLocal内存泄漏问题</h2><h3 id="1、实现原理"><a href="#1、实现原理" class="headerlink" title="1、实现原理"></a>1、实现原理</h3><p><img src="/images/java/并发编程/threadLocal原理图.png" alt=""> {width=”556px” height=”307px” title=”threadLocal原理图”}</p>
 <blockquote>
 <p>每个Thread维护一个ThreadLocalMap映射表,key为ThreadLocal实例本身，value为需要存储的Object</p>
 </blockquote>
@@ -594,7 +594,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://47.88.53.111:8002/icon.jpg"
+                src="/images/icon.jpg"
                 alt="vhjy" />
             
               <p class="site-author-name" itemprop="name">vhjy</p>
@@ -608,7 +608,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -619,7 +619,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -630,7 +630,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -640,22 +640,6 @@
 
           
 
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/vhjy369" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:vhjy369@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
           
 
           

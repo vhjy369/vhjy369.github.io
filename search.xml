@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[我的个神啊(外星醉汉PK地球神)]]></title>
+    <url>%2F2018%2F03%2F04%2F%E8%AF%BB%E4%B9%A6%E8%A7%82%E5%BD%B1%2F%E7%94%B5%E5%BD%B1%2F%E6%88%91%E7%9A%84%E4%B8%AA%E7%A5%9E%E5%95%8A(%E5%A4%96%E6%98%9F%E9%86%89%E6%B1%89PK%E5%9C%B0%E7%90%83%E7%A5%9E)%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>生活</category>
+        <category>电影</category>
+      </categories>
+      <tags>
+        <tag>电影</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[地球上的星星]]></title>
     <url>%2F2018%2F03%2F04%2F%E8%AF%BB%E4%B9%A6%E8%A7%82%E5%BD%B1%2F%E7%94%B5%E5%BD%B1%2F%E5%9C%B0%E7%90%83%E4%B8%8A%E7%9A%84%E6%98%9F%E6%98%9F%2F</url>
     <content type="text"><![CDATA[何为阅读障碍症一种大脑综合处理视觉和听觉信息不能协调而引起的一种阅读和拼写障碍症。注意区分它和那种因为智力低下而引起的阅读障碍症，相反很多患者是智商极高，甚至包括天才型的人。达芬奇，爱迪生，爱因斯坦，肯尼迪在儿童时代都被认为成绩极差的“笨孩子”，最后科学家发现他们都属于阅读障碍症的典型例子。换句话说，阅读障碍的人，不是智障，就是IQ奇高的天才 表现一、表现为阅读习惯不良，例如，朗读时，摇头晃脑、情绪不安或读着读着不知读到何处，或用手指着字读，或捧书太近或太远，或头部歪斜、书本歪斜。二、表现为朗读声音过高或过低、音色单调、声调过高或过低、不能清晰地发音。三、表现朗读错误，朗读时添加字词、遗漏字词、重复字词、某些字词用其它字词代替、经常自己错了又纠正等。 感受特殊儿童有着不同别人规律的思维，像一颗颗星星，需要机会才能释放。想到小时候的自己，父母外出打工，没人管，调皮爱玩，小学一二年级从没及格过，面对的也只有批评。感谢后来郭老师的引导，如大姐姐一般，也许正是有时不经意的一句鼓励可以让自己慢慢对学习感兴趣吧。也正是享受到了处于top中的优越感，可以一直有动力去努力追寻。]]></content>
@@ -69,6 +81,18 @@
       </categories>
       <tags>
         <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[线程中断]]></title>
+    <url>%2F2018%2F02%2F20%2Fjava%2F%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%2F%E7%BA%BF%E7%A8%8B%E4%B8%AD%E6%96%AD%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>并发编程</tag>
       </tags>
   </entry>
   <entry>
@@ -588,6 +612,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[拜占庭将军问题]]></title>
+    <url>%2F2017%2F03%2F13%2F%E5%88%86%E5%B8%83%E5%BC%8F%E9%AB%98%E5%8F%AF%E7%94%A8%2F%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>分布式高可用</category>
+      </categories>
+      <tags>
+        <tag>分布式高可用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[佳句赏析_2]]></title>
     <url>%2F2017%2F03%2F11%2F%E8%AF%BB%E4%B9%A6%E8%A7%82%E5%BD%B1%2F%E4%B9%A6%E7%B1%8D%2F%E4%BD%B3%E5%8F%A5%E8%B5%8F%E6%9E%90_2%2F</url>
     <content type="text"><![CDATA[1，找到你害怕的点，你就能成功了。]]></content>
@@ -956,6 +991,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[数据一致性的理论]]></title>
+    <url>%2F2016%2F06%2F13%2F%E5%88%86%E5%B8%83%E5%BC%8F%E9%AB%98%E5%8F%AF%E7%94%A8%2F%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E7%90%86%E8%AE%BA%E5%8F%8A%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[一、分布式事务需求来源1、跨数据库 数据库拆分带来的分布式事务 –&gt; 保证跨库操作的原子性基于单个JVM 2、跨应用 应用拆分带来的分布式事务，保证跨应用业务操作的原子性跨JVM 二、CAP理论 C数据一致性 ：所有节点拥有数据的最新版本 A可用性 ：数据具备高可用性 P分区容忍性 ：容忍网络出现分区，分区之前的网络不可达 三、解决方案1、弱一致性 有可能某个时刻数据非一致，但保证最终一致。 &emsp;a、由外围系统重试。自身实现幂等，保证最终的一致性。&emsp;&emsp;&emsp;被调用方无需关心一致性问题。只需实现幂等，无耦合 &emsp;b、依赖于事务型消息，通过消息重试，保证最终一致性&emsp;&emsp;&emsp;上层系统无重试，补偿，只依赖系统自身保证一致性。在用户解冻结后，发送事务型消息，只要消息发送和用户解冻成功即可返回外围系统成功。而后面账户的解冻依赖于消息中心的消息投递。失败了，有消息系统重试，直到成功。 &emsp;c、依赖于调度系统，通过调度任务重试，保证最终一致性&emsp;&emsp;&emsp;上层业务无补偿，无重试，在完成用户解冻后，落地一张异步的任务表，由定时任务定时扫描去调用账务解冻。&emsp;&emsp;&emsp;是否重试和终止，由系统自身决定，灵活性更高。 2、强一致性 需要保证数据的一致性是实时的，每一时刻都保持一致。引入协调者中间协调者从全局把控业务涉及的系统，是否存在部分失败及最终提交还是回滚。 &emsp;a、2pc&emsp;&emsp;&emsp;由一方进行提议(propose)并收集其他节点的反馈(vote)，再根据反馈决定提交(commit)或中止(abort)事务 问题： 第二阶段，由于网络问题，某参与者或者协调者宕机，导致一直等待占用资源，数据不一致若协调者是集群，可能协调者和部分参与者都宕机，选出新的协调者是无法知晓事务状态，导致数据不一致 &emsp;b、tcc&emsp;&emsp;&emsp;TCC分别对应Try，Confirm和Cancel三种操作 Try:预留业务资源 1、完成所有业务检查（一致性） 2、预留必须业务资源（准隔离性） Confirm：确认执行业务。 1、真正执行业务 2、不做任何业务检查 3、只使用Try阶段预留的业务资源 Cancel：取消执行业务 释放Try阶段预留的业务资源 确保幂等性： 通过唯一键值做处理，每次调用的时候传入唯一键值，判断业务是否已被操作 通过状态机处理给业务数据设置状态，判断是否执行 例子： 支付系统接收到会员的支付请求后，需要扣减会员账户余额、增加会员积分（暂时假设需要同步实现）增加商户账户余额 再假设：会员系统、商户系统、积分系统是独立的三个子系统，无法通过传统的事务方式进行处理。 TRYING阶段：我们需要做的就是会员资金账户的资金预留，即：冻结会员账户的金额（订单金额）CONFIRMING阶段：我们需要做的就是会员积分账户增加积分余额，商户账户增加账户余额CANCELING阶段：该阶段需要执行的就是解冻释放我们扣减的会员余额 &emsp;c、3pc&emsp;&emsp;第一阶段协调者询问参与者是否可以执行事务，参与者就分析自身是否能够成功执行事务操作，可以则返回yes,否则no&emsp;&emsp;第二阶段参与者收到后则开始执行事务操作，执行成功后反馈yes给协调者反之no&emsp;&emsp;第三阶段协调者根据参与者的反馈选择发起abort或者commit命令 增加了超时机制： 第二阶段，如果协调者超时没有接受到参与者的反馈，则自动认为失败，发送abort命令第三阶段，如果参与者超时没有接受到协调者的反馈，则自动认为成功开始提交事务（基于概率） 比较 相对于2pc，3pc解决了单点问题。参与者接收不到协调者的信息会默认commit，不会阻塞。但可能由于网络问题，参与者没有接收到abort信息，却默认提交。导致数据不一致]]></content>
+      <categories>
+        <category>分布式高可用</category>
+      </categories>
+      <tags>
+        <tag>分布式高可用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux-shadowsocks服务端安装]]></title>
     <url>%2F2016%2F06%2F13%2Flinux%2F%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%2Fshadowsocks%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E8%A3%85%2F</url>
     <content type="text"><![CDATA[1、安装shadowsockspip install shadowsocks 2、创建/etc/shadowsocks.json123456789&#123; &quot;server&quot;:&quot;127.0.0.1&quot;, &quot;server_port&quot;:8388, &quot;local_address&quot;: &quot;127.0.0.1&quot;, &quot;local_port&quot;:1080, &quot;password&quot;:&quot;zhangjun&quot;, &quot;timeout&quot;:300, &quot;method&quot;:&quot;rc4-md5&quot;&#125; 3、启动12ssserver -c /etc/shadowsocks.json -d startssserver -c /etc/shadowsocks.json -d stop 4、加速优化4.1 内核参数优化首先，将 Linux 内核升级到 3.5 或以上。第一步，增加系统文件描述符的最大限数编辑文件 limits.confvi /etc/security/limits.conf增加以下两行12soft nofile 51200hard nofile 51200 启动shadowsocks服务器之前，设置以下参数ulimit -n 51200 4.2 调整内核参数修改配置文件 /etc/sysctl.conf123456789101112131415161718fs.file-max = 51200net.core.rmem_max = 67108864net.core.wmem_max = 67108864net.core.netdev_max_backlog = 250000net.core.somaxconn = 4096net.ipv4.tcp_syncookies = 1net.ipv4.tcp_tw_reuse = 1net.ipv4.tcp_tw_recycle = 0net.ipv4.tcp_fin_timeout = 30net.ipv4.tcp_keepalive_time = 1200net.ipv4.ip_local_port_range = 10000 65000net.ipv4.tcp_max_syn_backlog = 8192net.ipv4.tcp_max_tw_buckets = 5000net.ipv4.tcp_fastopen = 3net.ipv4.tcp_rmem = 4096 87380 67108864net.ipv4.tcp_wmem = 4096 65536 67108864net.ipv4.tcp_mtu_probing = 1net.ipv4.tcp_congestion_control = hybla 修改后执行 sysctl -p 使配置生效]]></content>
@@ -965,17 +1011,6 @@
       </categories>
       <tags>
         <tag>软件安装</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[数据一致性的理论]]></title>
-    <url>%2F2016%2F06%2F13%2F%E5%88%86%E5%B8%83%E5%BC%8F%E9%AB%98%E5%8F%AF%E7%94%A8%2F%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E7%90%86%E8%AE%BA%E5%8F%8A%E6%96%B9%E6%A1%88%2F</url>
-    <content type="text"><![CDATA[一、分布式事务需求来源1、跨数据库 数据库拆分带来的分布式事务 –&gt; 保证跨库操作的原子性基于单个JVM 2、跨应用 应用拆分带来的分布式事务，保证跨应用业务操作的原子性跨JVM 二、CAP理论 C数据一致性 ：所有节点拥有数据的最新版本 A可用性 ：数据具备高可用性 P分区容忍性 ：容忍网络出现分区，分区之前的网络不可达 三、解决方案1、弱一致性 有可能某个时刻数据非一致，但保证最终一致。 &emsp;a、由外围系统重试。自身实现幂等，保证最终的一致性。&emsp;&emsp;&emsp;被调用方无需关心一致性问题。只需实现幂等，无耦合 &emsp;b、依赖于事务型消息，通过消息重试，保证最终一致性&emsp;&emsp;&emsp;上层系统无重试，补偿，只依赖系统自身保证一致性。在用户解冻结后，发送事务型消息，只要消息发送和用户解冻成功即可返回外围系统成功。而后面账户的解冻依赖于消息中心的消息投递。失败了，有消息系统重试，直到成功。 &emsp;c、依赖于调度系统，通过调度任务重试，保证最终一致性&emsp;&emsp;&emsp;上层业务无补偿，无重试，在完成用户解冻后，落地一张异步的任务表，由定时任务定时扫描去调用账务解冻。&emsp;&emsp;&emsp;是否重试和终止，由系统自身决定，灵活性更高。 2、强一致性 需要保证数据的一致性是实时的，每一时刻都保持一致。引入协调者中间协调者从全局把控业务涉及的系统，是否存在部分失败及最终提交还是回滚。 &emsp;a、2pc&emsp;&emsp;&emsp;由一方进行提议(propose)并收集其他节点的反馈(vote)，再根据反馈决定提交(commit)或中止(abort)事务 问题： 第二阶段，由于网络问题，某参与者或者协调者宕机，导致一直等待占用资源，数据不一致若协调者是集群，可能协调者和部分参与者都宕机，选出新的协调者是无法知晓事务状态，导致数据不一致 &emsp;b、tcc&emsp;&emsp;&emsp;TCC分别对应Try，Confirm和Cancel三种操作 Try:预留业务资源 1、完成所有业务检查（一致性） 2、预留必须业务资源（准隔离性） Confirm：确认执行业务。 1、真正执行业务 2、不做任何业务检查 3、只使用Try阶段预留的业务资源 Cancel：取消执行业务 释放Try阶段预留的业务资源 确保幂等性： 通过唯一键值做处理，每次调用的时候传入唯一键值，判断业务是否已被操作 通过状态机处理给业务数据设置状态，判断是否执行 例子： 支付系统接收到会员的支付请求后，需要扣减会员账户余额、增加会员积分（暂时假设需要同步实现）增加商户账户余额 再假设：会员系统、商户系统、积分系统是独立的三个子系统，无法通过传统的事务方式进行处理。 TRYING阶段：我们需要做的就是会员资金账户的资金预留，即：冻结会员账户的金额（订单金额）CONFIRMING阶段：我们需要做的就是会员积分账户增加积分余额，商户账户增加账户余额CANCELING阶段：该阶段需要执行的就是解冻释放我们扣减的会员余额 &emsp;c、3pc&emsp;&emsp;第一阶段协调者询问参与者是否可以执行事务，参与者就分析自身是否能够成功执行事务操作，可以则返回yes,否则no&emsp;&emsp;第二阶段参与者收到后则开始执行事务操作，执行成功后反馈yes给协调者反之no&emsp;&emsp;第三阶段协调者根据参与者的反馈选择发起abort或者commit命令 增加了超时机制： 第二阶段，如果协调者超时没有接受到参与者的反馈，则自动认为失败，发送abort命令第三阶段，如果参与者超时没有接受到协调者的反馈，则自动认为成功开始提交事务（基于概率） 比较 相对于2pc，3pc解决了单点问题。参与者接收不到协调者的信息会默认commit，不会阻塞。但可能由于网络问题，参与者没有接收到abort信息，却默认提交。导致数据不一致]]></content>
-      <categories>
-        <category>分布式高可用</category>
-      </categories>
-      <tags>
-        <tag>分布式高可用</tag>
       </tags>
   </entry>
   <entry>
@@ -1074,26 +1109,26 @@
   </entry>
   <entry>
     <title><![CDATA[说话的梗]]></title>
-    <url>%2F2016%2F02%2F19%2F%E7%94%9F%E6%B4%BB%2F%E9%98%85%E5%8E%86%2F%E8%AF%B4%E8%AF%9D%E7%9A%84%E6%A2%97%2F</url>
+    <url>%2F2016%2F02%2F19%2F%E7%94%9F%E6%B4%BB%2F%E5%AD%A6%E4%B9%A0%2F%E8%AF%B4%E8%AF%9D%E7%9A%84%E6%A2%97%2F</url>
     <content type="text"><![CDATA[1、故事很复杂，又没有字幕，不太适合说给你听2、笑话https://www.zhihu.com/question/50053278]]></content>
       <categories>
         <category>生活</category>
-        <category>沟通</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>沟通</tag>
+        <tag>学习</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[输出式学习]]></title>
-    <url>%2F2016%2F02%2F11%2F%E7%94%9F%E6%B4%BB%2F%E9%98%85%E5%8E%86%2F%E8%BE%93%E5%87%BA%E5%BC%8F%E5%AD%A6%E4%B9%A0%2F</url>
+    <url>%2F2016%2F02%2F11%2F%E7%94%9F%E6%B4%BB%2F%E5%AD%A6%E4%B9%A0%2F%E8%BE%93%E5%87%BA%E5%BC%8F%E5%AD%A6%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[今天在知乎上看到问题，为什么我每天阅读大量的新闻、深度分析、故事和笑话，和别人在一起的时候却从来想不出话题？及相关问题，如何从思维上彻底改变学习模式？ 看完所有答案后留下此篇日志 1、 ![http://47.88.53.111:8002/%E7%94%9F%E6%B4%BB/]]]></content>
       <categories>
         <category>生活</category>
-        <category>阅历</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>阅历</tag>
+        <tag>学习</tag>
       </tags>
   </entry>
 </search>

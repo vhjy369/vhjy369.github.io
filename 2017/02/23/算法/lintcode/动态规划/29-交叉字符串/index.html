@@ -91,12 +91,12 @@
 <meta property="og:site_name" content="vhjy&#39;s Blog">
 <meta property="og:description" content="题目给出三个字符串:s1、s2、s3，判断s3是否由s1和s2交叉构成。样例比如 s1 = “aabcc” s2 = “dbbca” - 当 s3 = &amp;quot;aadbbcbcac&amp;quot;，返回  true. - 当 s3 = &amp;quot;aadbbbaccc&amp;quot;， 返回 false. 分析s1取一部分，s2取一部分，最后是否匹配s3dp[i][j]，表示s1取前i位（第i位之前">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://47.88.53.111:8002/算法/动态规划/20180224165211.png">
-<meta property="og:updated_time" content="2018-02-24T08:54:36.735Z">
+<meta property="og:image" content="http://yoursite.com/images/算法/动态规划/20180224165211.png">
+<meta property="og:updated_time" content="2018-03-13T02:33:17.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="29-交叉字符串">
 <meta name="twitter:description" content="题目给出三个字符串:s1、s2、s3，判断s3是否由s1和s2交叉构成。样例比如 s1 = “aabcc” s2 = “dbbca” - 当 s3 = &amp;quot;aadbbcbcac&amp;quot;，返回  true. - 当 s3 = &amp;quot;aadbbbaccc&amp;quot;， 返回 false. 分析s1取一部分，s2取一部分，最后是否匹配s3dp[i][j]，表示s1取前i位（第i位之前">
-<meta name="twitter:image" content="http://47.88.53.111:8002/算法/动态规划/20180224165211.png">
+<meta name="twitter:image" content="http://yoursite.com/images/算法/动态规划/20180224165211.png">
 
 
 
@@ -297,7 +297,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="vhjy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://47.88.53.111:8002/icon.jpg">
+      <meta itemprop="image" content="/images/icon.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -426,7 +426,7 @@
         <script src="/assets/js/APlayer.min.js"> </script><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给出三个字符串:s1、s2、s3，判断s3是否由s1和s2交叉构成。<br>样例<br>比如 s1 = “aabcc” s2 = “dbbca”</p>
 <pre><code>- 当 s3 = &quot;aadbbcbcac&quot;，返回  true.
 - 当 s3 = &quot;aadbbbaccc&quot;， 返回 false.
-</code></pre><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>s1取一部分，s2取一部分，最后是否匹配s3<br>dp[i][j]，表示s1取前i位（第i位之前的字符串也必须是构成s3）<br>s2取前j位（第j位之前的字符串也必须是构成s3），表示是否能组成s3的前i+j位<br><img src="http://47.88.53.111:8002/算法/动态规划/20180224165211.png" alt=""><br>s1, s2只有两个字符串，因此可以展平为一个二维地图，判断是否能从左上角走到右下角。<br>当s1到达第i个元素，s2到达第j个元素:<br>地图上往右一步就是s2[j-1]匹配s3[i+j-1]。<br>地图上往下一步就是s1[i-1]匹配s3[i+j-1]。<br>示例：s1=”aa”,s2=”ab”,s3=”aaba”。标1的为可行。最终返回右下角。<br>矩阵中红色的数值1表示dp[s1==0][s2==1]是构成s3的，所以1表示true.</p>
+</code></pre><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>s1取一部分，s2取一部分，最后是否匹配s3<br>dp[i][j]，表示s1取前i位（第i位之前的字符串也必须是构成s3）<br>s2取前j位（第j位之前的字符串也必须是构成s3），表示是否能组成s3的前i+j位<br><img src="/images/算法/动态规划/20180224165211.png" alt=""><br>s1, s2只有两个字符串，因此可以展平为一个二维地图，判断是否能从左上角走到右下角。<br>当s1到达第i个元素，s2到达第j个元素:<br>地图上往右一步就是s2[j-1]匹配s3[i+j-1]。<br>地图上往下一步就是s1[i-1]匹配s3[i+j-1]。<br>示例：s1=”aa”,s2=”ab”,s3=”aaba”。标1的为可行。最终返回右下角。<br>矩阵中红色的数值1表示dp[s1==0][s2==1]是构成s3的，所以1表示true.</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
@@ -546,7 +546,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://47.88.53.111:8002/icon.jpg"
+                src="/images/icon.jpg"
                 alt="vhjy" />
             
               <p class="site-author-name" itemprop="name">vhjy</p>
@@ -560,7 +560,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +571,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -582,7 +582,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -592,22 +592,6 @@
 
           
 
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/vhjy369" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:vhjy369@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
           
 
           

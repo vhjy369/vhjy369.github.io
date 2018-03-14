@@ -91,16 +91,16 @@
 <meta property="og:site_name" content="vhjy&#39;s Blog">
 <meta property="og:description" content="概述ConditionObject是Condition在java并发中的具体的实现，它是AQS的内部类。因为Condition相关操作都需要获取锁，所以作为AQS的内部类也比较合理。 等待队列ConditionObject的等待队列是一个FIFO队列，队列的每个节点都是等待在Condition对象上的线程的引用，在调用Condition的await()方法之后，线程释放锁，构造成相应的节点进入等">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://47.88.53.111:8002/java/源码/ConditionObject_01.png">
-<meta property="og:image" content="http://47.88.53.111:8002/java/源码/await.png">
-<meta property="og:image" content="http://47.88.53.111:8002/java/源码/signal_01.png">
-<meta property="og:image" content="http://47.88.53.111:8002/java/源码/signal_02.png">
-<meta property="og:image" content="http://47.88.53.111:8002/java/源码/signal_03.png">
-<meta property="og:updated_time" content="2018-03-05T03:20:57.196Z">
+<meta property="og:image" content="http://yoursite.com/images/java/源码/ConditionObject_01.png">
+<meta property="og:image" content="http://yoursite.com/images/java/源码/await.png">
+<meta property="og:image" content="http://yoursite.com/images/java/源码/signal_01.png">
+<meta property="og:image" content="http://yoursite.com/images/java/源码/signal_02.png">
+<meta property="og:image" content="http://yoursite.com/images/java/源码/signal_03.png">
+<meta property="og:updated_time" content="2018-03-13T02:33:17.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Condition实现分析">
 <meta name="twitter:description" content="概述ConditionObject是Condition在java并发中的具体的实现，它是AQS的内部类。因为Condition相关操作都需要获取锁，所以作为AQS的内部类也比较合理。 等待队列ConditionObject的等待队列是一个FIFO队列，队列的每个节点都是等待在Condition对象上的线程的引用，在调用Condition的await()方法之后，线程释放锁，构造成相应的节点进入等">
-<meta name="twitter:image" content="http://47.88.53.111:8002/java/源码/ConditionObject_01.png">
+<meta name="twitter:image" content="http://yoursite.com/images/java/源码/ConditionObject_01.png">
 
 
 
@@ -301,7 +301,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="vhjy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://47.88.53.111:8002/icon.jpg">
+      <meta itemprop="image" content="/images/icon.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -440,15 +440,15 @@
       
         <script src="/assets/js/APlayer.min.js"> </script><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>ConditionObject是Condition在java并发中的具体的实现，它是AQS的内部类。因为Condition相关操作都需要获取锁，所以作为AQS的内部类也比较合理。</p>
 <h2 id="等待队列"><a href="#等待队列" class="headerlink" title="等待队列"></a>等待队列</h2><p>ConditionObject的等待队列是一个FIFO队列，队列的每个节点都是等待在Condition对象上的线程的引用，在调用Condition的await()方法之后，线程释放锁，构造成相应的节点进入等待队列等待。其中节点的定义复用AQS的Node定义。</p>
-<p><img src="http://47.88.53.111:8002/java/源码/ConditionObject_01.png" alt=""></p>
+<p><img src="/images/java/源码/ConditionObject_01.png" alt=""></p>
 <p>ConditionObject包含等待队列的首节点firstWaiter和尾节点lastWaiter<br>线程调用await()方法时，调用addConditionWaiter()方法入队：<br>step1：将线程构造成Node；<br>step2：将Node加入到等待队列中。<br>插入节点只需要将原有尾节点的nextWaiter指向当前节点，并且更新尾节点。更新节点并没有像AQS更新同步队列使用CAS是因为调用await()方法的线程必定是获取了锁的线程，锁保证了操作的线程安全。</p>
-<h2 id="等待"><a href="#等待" class="headerlink" title="等待"></a>等待</h2><p>调用Condition的await开头的系列方法，当前线程进入等待队列等待，那么Condition的等待实质是await系列方法的具体实现。<br><img src="http://47.88.53.111:8002/java/源码/await.png" alt=""><br>具体执行流程如下：<br>调用addConditionWaiter将当前线程加入等待队列；<br>调用fullRelease释放当前线程节点的同步状态，唤醒后继节点；<br>线程进入等待状态；<br>线程被唤醒后，从while循环中退出，调用acquireQueued尝试获取同步状态；<br>同步状态获取成功后，线程从await方法返回。</p>
+<h2 id="等待"><a href="#等待" class="headerlink" title="等待"></a>等待</h2><p>调用Condition的await开头的系列方法，当前线程进入等待队列等待，那么Condition的等待实质是await系列方法的具体实现。<br><img src="/images/java/源码/await.png" alt=""><br>具体执行流程如下：<br>调用addConditionWaiter将当前线程加入等待队列；<br>调用fullRelease释放当前线程节点的同步状态，唤醒后继节点；<br>线程进入等待状态；<br>线程被唤醒后，从while循环中退出，调用acquireQueued尝试获取同步状态；<br>同步状态获取成功后，线程从await方法返回。</p>
 <h2 id="唤醒"><a href="#唤醒" class="headerlink" title="唤醒"></a>唤醒</h2><p>调用Condition的signal()方法将会唤醒再等待队列中的首节点，该节点也是到目前为止等待时间最长的节点。</p>
 <ul>
-<li>signal实现<br><img src="http://47.88.53.111:8002/java/源码/signal_01.png" alt=""><br>step1：前置检查，判断当前线程是否是获取了锁的线程，如果不是抛出异常IllegalMonitorStateException，否则，执行step2；<br>step2：取得等待队列的头结点，头结点不为空执行doSignal，否则，signal结束。<br>可以看出，doSignal方法是整个signal方法实现的核心，它完成了将线程从唤醒的所有操作。</li>
-<li><p>doSignal实现<br><img src="http://47.88.53.111:8002/java/源码/signal_02.png" alt=""><br>整个doSignal完成了这两个操作：调用transferForSignal将节点从等待队列移动到同步队列，并且，将该节点从等待队列删除。</p>
+<li>signal实现<br><img src="/images/java/源码/signal_01.png" alt=""><br>step1：前置检查，判断当前线程是否是获取了锁的线程，如果不是抛出异常IllegalMonitorStateException，否则，执行step2；<br>step2：取得等待队列的头结点，头结点不为空执行doSignal，否则，signal结束。<br>可以看出，doSignal方法是整个signal方法实现的核心，它完成了将线程从唤醒的所有操作。</li>
+<li><p>doSignal实现<br><img src="/images/java/源码/signal_02.png" alt=""><br>整个doSignal完成了这两个操作：调用transferForSignal将节点从等待队列移动到同步队列，并且，将该节点从等待队列删除。</p>
 </li>
-<li><p>transferForSignal实现<br><img src="http://47.88.53.111:8002/java/源码/signal_03.png" alt=""><br>step1：将节点waitStatus设置为0，设置成功执行step2，否则返回false；<br>step2：调用enq方法将该节点加入同步队列；<br>step3：使用LockSuppor.unpark()方法唤醒该节点的线程。<br>Condition的signalAll()方法，将等待队列中的所有节点全部唤醒，相当于将等待队列中的每一个节点都执行一次signal()。整个signal系列方法将线程从等待队列移动到同步队列</p>
+<li><p>transferForSignal实现<br><img src="/images/java/源码/signal_03.png" alt=""><br>step1：将节点waitStatus设置为0，设置成功执行step2，否则返回false；<br>step2：调用enq方法将该节点加入同步队列；<br>step3：使用LockSuppor.unpark()方法唤醒该节点的线程。<br>Condition的signalAll()方法，将等待队列中的所有节点全部唤醒，相当于将等待队列中的每一个节点都执行一次signal()。整个signal系列方法将线程从等待队列移动到同步队列</p>
 </li>
 </ul>
 
@@ -570,7 +570,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://47.88.53.111:8002/icon.jpg"
+                src="/images/icon.jpg"
                 alt="vhjy" />
             
               <p class="site-author-name" itemprop="name">vhjy</p>
@@ -584,7 +584,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -595,7 +595,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -606,7 +606,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -616,22 +616,6 @@
 
           
 
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/vhjy369" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:vhjy369@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
           
 
           

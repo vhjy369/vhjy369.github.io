@@ -91,13 +91,13 @@
 <meta property="og:site_name" content="vhjy&#39;s Blog">
 <meta property="og:description" content="一、Java堆内存分配虚拟机把堆内存划分成新生代（Young Generation）、老年代（Old Generation）和永久代（Permanent Generation）3个区域  1、新生代 新生代由Eden和Survivor(S0,S1)构成，大小通过-Xmn参数指定，默认8：1：1   1、对象首先在Eden中分配，当Eden中没有足够空间时，会触发一次Minor GC，虚拟机提供了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://47.88.53.111:8002/java/jvm/Java堆内存分配图.png">
-<meta property="og:image" content="http://47.88.53.111:8002/java/jvm/分代收集器.png">
-<meta property="og:updated_time" content="2018-02-28T09:09:54.125Z">
+<meta property="og:image" content="http://yoursite.com/images/java/jvm/Java堆内存分配图.png">
+<meta property="og:image" content="http://yoursite.com/images/java/jvm/分代收集器.png">
+<meta property="og:updated_time" content="2018-03-13T02:33:17.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="垃圾回收">
 <meta name="twitter:description" content="一、Java堆内存分配虚拟机把堆内存划分成新生代（Young Generation）、老年代（Old Generation）和永久代（Permanent Generation）3个区域  1、新生代 新生代由Eden和Survivor(S0,S1)构成，大小通过-Xmn参数指定，默认8：1：1   1、对象首先在Eden中分配，当Eden中没有足够空间时，会触发一次Minor GC，虚拟机提供了">
-<meta name="twitter:image" content="http://47.88.53.111:8002/java/jvm/Java堆内存分配图.png">
+<meta name="twitter:image" content="http://yoursite.com/images/java/jvm/Java堆内存分配图.png">
 
 
 
@@ -298,7 +298,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="vhjy">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://47.88.53.111:8002/icon.jpg">
+      <meta itemprop="image" content="/images/icon.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -425,7 +425,7 @@
 
       
         <script src="/assets/js/APlayer.min.js"> </script><h2 id="一、Java堆内存分配"><a href="#一、Java堆内存分配" class="headerlink" title="一、Java堆内存分配"></a>一、Java堆内存分配</h2><p><strong>虚拟机把堆内存划分成新生代（Young Generation）、老年代（Old Generation）和永久代（Permanent Generation）3个区域</strong></p>
-<p><img src="http://47.88.53.111:8002/java/jvm/Java堆内存分配图.png" alt=""></p>
+<p><img src="/images/java/jvm/Java堆内存分配图.png" alt=""></p>
 <h3 id="1、新生代"><a href="#1、新生代" class="headerlink" title="1、新生代"></a>1、新生代</h3><blockquote>
 <p>新生代由Eden和Survivor(S0,S1)构成，大小通过-Xmn参数指定，默认8：1：1</p>
 </blockquote>
@@ -469,7 +469,7 @@
 <p>这里忽略了一个问题，当发生GC时，运行中的线程可以跑到Safe Point后进行挂起，而那些处于Sleep或Blocked状态的线程在此时无法响应JVM的中断请求，无法到Safe Point处进行挂起，针对这种情况，可以使用安全区域（Safe Region）进行解决。</p>
 <p>Safe Region是指在一段代码片段中，对象的引用关系不会发生变化，在这个区域中的任何位置开始GC都是安全的。<br>1、当线程运行到Safe Region的代码时，首先标识已经进入了Safe Region，如果这段时间内发生GC，JVM会忽略标识为Safe Region状态的线程；<br>2、当线程即将离开Safe Region时，会检查JVM是否已经完成GC，如果完成了，则继续运行，否则线程必须等待直到收到可以安全离开Safe Region的信号为止；</p>
 <h2 id="五、垃圾收集器"><a href="#五、垃圾收集器" class="headerlink" title="五、垃圾收集器"></a>五、垃圾收集器</h2><p>Java虚拟机规范并没有规定垃圾收集器应该如何实现，用户可以根据系统特点对各个区域所使用的收集器进行组合使用。</p>
-<p><img src="http://47.88.53.111:8002/java/jvm/分代收集器.png" alt=""></p>
+<p><img src="/images/java/jvm/分代收集器.png" alt=""></p>
 <p>上图展示了7种不同分代的收集器，如果两两之间存在连线，说明可以组合使用。</p>
 <p>1、Serial收集器（串行GC）<br>Serial 是一个采用单个线程并基于复制算法工作在新生代的收集器，进行垃圾收集时，必须暂停其他所有的工作线程。对于单CPU环境来说，Serial由于没有线程交互的开销，可以很高效的进行垃圾收集动作，是Client模式下新生代默认的收集器。</p>
 <p>2、ParNew收集器（并行GC）<br>ParNew其实是serial的多线程版本，除了使用多条线程进行垃圾收集之外，其余行为与Serial一样。</p>
@@ -606,7 +606,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://47.88.53.111:8002/icon.jpg"
+                src="/images/icon.jpg"
                 alt="vhjy" />
             
               <p class="site-author-name" itemprop="name">vhjy</p>
@@ -620,7 +620,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -631,7 +631,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -642,7 +642,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -652,22 +652,6 @@
 
           
 
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/vhjy369" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:vhjy369@gmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
           
 
           
