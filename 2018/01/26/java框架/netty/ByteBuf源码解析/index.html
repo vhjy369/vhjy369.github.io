@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+  (function(){
+      if(''){
+          if (prompt('请输入文章密码') !== ''){
+              alert('密码错误！');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="netty," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、ByteBuf概述1、ByteBuf和ByteBuffer的区别 ByteBuf重新实现了一个缓冲区，ByteBuffer只使用一个position指针来记录当前的读写位置，ByteBuf使用了两个指针readerIndex和writerIndex分别记录读写位置 ByteBuffer是一个固定长度的缓冲区，当put方法要写的数据大于可写的容量时会抛出异常。ByteBuf支持自动扩容。 和B">
+<meta name="keywords" content="netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ByteBuf源码解析">
+<meta property="og:url" content="http://yoursite.com/2018/01/26/java框架/netty/ByteBuf源码解析/index.html">
+<meta property="og:site_name" content="vhjy&#39;s Blog">
+<meta property="og:description" content="一、ByteBuf概述1、ByteBuf和ByteBuffer的区别 ByteBuf重新实现了一个缓冲区，ByteBuffer只使用一个position指针来记录当前的读写位置，ByteBuf使用了两个指针readerIndex和writerIndex分别记录读写位置 ByteBuffer是一个固定长度的缓冲区，当put方法要写的数据大于可写的容量时会抛出异常。ByteBuf支持自动扩容。 和B">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/netty/allocateMemory.png">
+<meta property="og:image" content="http://yoursite.com/images/netty/freeMemory.png">
+<meta property="og:image" content="http://yoursite.com/images/netty/初始对象引用关系.png">
+<meta property="og:image" content="http://yoursite.com/images/netty/GC后对象引用关系.png">
+<meta property="og:image" content="http://yoursite.com/images/netty/SystemGC.png">
+<meta property="og:updated_time" content="2019-09-17T08:37:03.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ByteBuf源码解析">
+<meta name="twitter:description" content="一、ByteBuf概述1、ByteBuf和ByteBuffer的区别 ByteBuf重新实现了一个缓冲区，ByteBuffer只使用一个position指针来记录当前的读写位置，ByteBuf使用了两个指针readerIndex和writerIndex分别记录读写位置 ByteBuffer是一个固定长度的缓冲区，当put方法要写的数据大于可写的容量时会抛出异常。ByteBuf支持自动扩容。 和B">
+<meta name="twitter:image" content="http://yoursite.com/images/netty/allocateMemory.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/26/java框架/netty/ByteBuf源码解析/"/>
+
+
+
+
+
+  <title>ByteBuf源码解析 | vhjy's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">vhjy's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Quick notes</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-相册">
+          <a href="/photos/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/26/java框架/netty/ByteBuf源码解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="vhjy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="vhjy's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ByteBuf源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T14:05:07+08:00">
+                2018-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java框架/" itemprop="url" rel="index">
+                    <span itemprop="name">java框架</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java框架/netty/" itemprop="url" rel="index">
+                    <span itemprop="name">netty</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,428
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="/assets/js/APlayer.min.js"> </script><h2 id="一、ByteBuf概述"><a href="#一、ByteBuf概述" class="headerlink" title="一、ByteBuf概述"></a>一、ByteBuf概述</h2><h3 id="1、ByteBuf和ByteBuffer的区别"><a href="#1、ByteBuf和ByteBuffer的区别" class="headerlink" title="1、ByteBuf和ByteBuffer的区别"></a>1、ByteBuf和ByteBuffer的区别</h3><ul>
+<li>ByteBuf重新实现了一个缓冲区，ByteBuffer只使用一个position指针来记录当前的读写位置，ByteBuf使用了两个指针readerIndex和writerIndex分别记录读写位置</li>
+<li>ByteBuffer是一个固定长度的缓冲区，当put方法要写的数据大于可写的容量时会抛出异常。ByteBuf支持自动扩容。</li>
+<li>和ByteBuffer一样，ByteBuf也支持堆内缓冲区和堆外直接缓冲区，如果是底层IO处理线程的缓冲区使用堆外直接缓冲区，减少一次IO复制。业务消息的编解码使用堆内缓冲区，提高分配效率，而且不涉及内核缓冲区的复制问题。</li>
+<li>ByteBuf的堆内缓冲区分为内存池缓冲区PooledByteBuf和普通内存缓冲区UnpooledHeapByteBuf。PooledByteBuf采用二叉树来实现一个内存池，几种管理内存的分配和释放，不用每次都新建一个缓冲区对象。UnpooledHeapByteBuf每次都会新建一个缓冲区对象。高并发下可以使用PooledByteBuf节约内存的分配</li>
+</ul>
+<h3 id="2、ByteBuf的特点"><a href="#2、ByteBuf的特点" class="headerlink" title="2、ByteBuf的特点"></a>2、ByteBuf的特点</h3><p>可以自定义缓冲类型<br>通过内置的复合缓冲类型，实现零拷贝<br>不需要flip()切换读写模式<br>读取和写入索引分来<br>引用计数<br>Pooling(池)</p>
+<h3 id="3、实现机制"><a href="#3、实现机制" class="headerlink" title="3、实现机制"></a>3、实现机制</h3><ul>
+<li>ByteBuf实际是在一个抽象的字节数组byte[]上进行读写的集合。提供两个指针变量支持读写操作：readerIndex和writerIndex。</li>
+<li>在对象初始化时，readerIndex和writerIndex的值为0，随着读写操作的进行。会增加，不过readerIndex不能超过writerIndex。</li>
+<li>在进行读取操作后，0到readerIndex之间的空间会被discard，调用ByteBuf的discardReadBytes方法可以对这部分空间释放重用。类似ByteBuffer的compact操作，对缓冲区进行压缩。</li>
+<li>readerIndex到writerIndex的空间相当于ByteBuffer的position到limit的空间，可以对其进行读取，writerIndex到capacity的空间相当于ByteBuffer的limit到capacity的空间，可以继续写入。</li>
+</ul>
+<h2 id="二、四种内存分配方式"><a href="#二、四种内存分配方式" class="headerlink" title="二、四种内存分配方式"></a>二、四种内存分配方式</h2><h3 id="1、UnpooledHeapByteBuf"><a href="#1、UnpooledHeapByteBuf" class="headerlink" title="1、UnpooledHeapByteBuf"></a>1、UnpooledHeapByteBuf</h3><p>UnppooledHeapByteBuf是一个非线程池实现的在堆内存进行内存分配的字节缓冲区，在每次IO操作时都会去创建UnpooledHeapByteBuf对象，如果频繁会对性能有影响。</p>
+<h3 id="2、PooledByteBuf"><a href="#2、PooledByteBuf" class="headerlink" title="2、PooledByteBuf"></a>2、PooledByteBuf</h3><p>在Netty4后加入了内存池管理，比ByteBuf的创建性能有所提高<br>1）、PoolArena<br>在内存分配中，为了能够集中管理内存的分配和释放，同时提高分配和释放的性能，一般都会预先分配一大块连续的内存。就叫做memory Arena。PoolArena是Netty的内存池实现类。<br>在Netty中，PoolArena是由多个Chunk组成的，每个Chunk由多个Page组成。PoolArena是由Chunk和Page共同组织和管理的。<br>2）、PoolChunk<br>page 可以用来分配的最小内存块单位<br>Chunk page的集合<br>PoolChunk主要负责内存块的分配和释放，chunk中的page会构成一颗二叉树，默认page是8k，chunk的大小是2^11page，即16M，构成11层的二叉树。最下面一层叶子节点有8192个，和page数目一样<br>每个节点会记录自己在Memory Area的偏移地址，当一个节点表示的内存区域被分配后该节点会标识为已分配。该节点的所有子节点的内存请求会被忽略。<br>3）、PoolSubpage<br>当对于小于一个Page的内存分配的时候，每个Page会被划分为大小相等的内存块，他的大小是根据第一次申请内存分配的内存块大小决定<br>一个Page只能分配与第一次内存分配的内存块大小相等的内存块，如果想申请大小不相等的内存块，只能在新的Page上申请内存分配。<br>Page中的存储区域的使用情况是通过一个Long数组bitmap来维护的，每一位表示一个区域的占用情况</p>
+<h3 id="3、PooledDirectByteBuf"><a href="#3、PooledDirectByteBuf" class="headerlink" title="3、PooledDirectByteBuf"></a>3、PooledDirectByteBuf</h3><p>1）、创建字节缓冲区<br>由于内存池实现，每次创建字节缓冲区的时候，不是直接new，而是从内存池中去获取，然后设置引用计数器和读写Index，和缓冲区最大容量返回。<br>2）、复制字节缓冲区实例<br>copy方法可以复制一个字节缓冲区实例，与原缓冲区独立<br>首先要对index和length进行合法性判断，然后调用PooledByteBufAllocator的directBuffer方法分配一个新的缓冲区。newDirectBuffer方法是一个抽象方法，对于不同的子类有不同的实现。<br>如果是unpooled的话，会直接创建一个新的缓冲区，如果是pooled的话，它会从内存池中获取一个可用的缓冲区。</p>
+<h3 id="4、UnpooledDirectByteBuf"><a href="#4、UnpooledDirectByteBuf" class="headerlink" title="4、UnpooledDirectByteBuf"></a>4、UnpooledDirectByteBuf</h3><p>UnpooledDirectByteBuf是一个聚合对象，内部维护了一个java.nio.ByteBuffer的直接对外内存空间，释放UnpooledDirectByteBuf中堆外内存的时机，就是在UnpooledDirectByteBuf被java垃圾回收的时候，应该于此同时需要释放指向的堆外内存，但堆外内存不受JVM GC的管理，所以我们只有感知到UnpooledDirectByteBuf被JVM虚拟机回收后（虚引用），手动去释放堆外内存</p>
+<h2 id="三、规避内存泄漏"><a href="#三、规避内存泄漏" class="headerlink" title="三、规避内存泄漏"></a>三、规避内存泄漏</h2><h3 id="1、为什么要有引用计数器"><a href="#1、为什么要有引用计数器" class="headerlink" title="1、为什么要有引用计数器"></a>1、为什么要有引用计数器</h3><ul>
+<li>Netty里四种主要的ByteBuf</li>
+<li>其中UnpooledHeapByteBuf底下的byte[]能够依赖JVM GC自然回收，而UnpooledDirectByteBuf底下u吃DirectByteBuf，除了等JVM GC，最好也能主动进行回收；而PooledHeapByteBuf和PoolDirectByteBuf，则必须要主动将用完的byte[]/ByteBuffer放回到池里，否则内存就要爆掉。所以，Netty的ByteBuf需要在JVM的GC机制之外，有自己的引用计数器和回收过程</li>
+</ul>
+<h3 id="2、引用计数器常识"><a href="#2、引用计数器常识" class="headerlink" title="2、引用计数器常识"></a>2、引用计数器常识</h3><ul>
+<li>计数器基于 AtomicIntegerFieldUpdater，因为ByteBuf对象很多，如果都把int包一层AtomicInteger花销较大，而AtomicIntegerFieldUpdater只需要一个全局的静态变量。所有ByteBuf的引用计数器初始值为1。</li>
+<li>调用release()，将计数器减1，等于零时， deallocate()被调用，各种回收。</li>
+<li>调用retain()，将计数器加1，即使ByteBuf在别的地方被人release()了，在本Class没喊cut之前，不要把它释放掉。</li>
+<li>由duplicate(), slice()和order(ByteOrder)所创建的ByteBuf，与原对象共享底下的buffer，也共享引用计数器，所以它们经常需要调用retain()来显示自己的存在。</li>
+<li>当引用计数器为0，底下的buffer已被回收，即使ByteBuf对象还在，对它的各种访问操作都会抛出异常。</li>
+</ul>
+<h3 id="3、谁来负责Release"><a href="#3、谁来负责Release" class="headerlink" title="3、谁来负责Release"></a>3、谁来负责Release</h3><ul>
+<li>在C时代，我们喜欢让malloc和free成对出现，而在Netty里，因为Handler链的存在，ByteBuf经常要传递到下一个Hanlder去而不复还，所以规则变成了谁是最后使用者，谁负责释放。</li>
+<li>若出现异常情况，ByteBuf没有成功传递到下一个Hanlder，还在自己地界里的话，一定要进行释放。 谁最后谁负责</li>
+<li>InBound Message<br>假设每一个Handler都把消息往下传，Handler并也不知道谁是启动Netty时所设定的Handler链的最后一员，所以Netty会在Handler链的最末补一个TailHandler，如果此时消息仍然是ReferenceCounted类型就会被release掉。</li>
+<li>OutBound Message<br>要发送的消息通常由应用所创建，并调用 ctx.writeAndFlush(msg) 进入Handler链。在每一个Handler中的处理类似InBound Message，最后消息会来到HeadHandler，再经过一轮复杂的调用，在flush完成后终将被release掉。</li>
+</ul>
+<h3 id="4、内存泄漏检测"><a href="#4、内存泄漏检测" class="headerlink" title="4、内存泄漏检测"></a>4、内存泄漏检测</h3><ul>
+<li>内存泄漏，主要是针对池化的ByteBuf。ByteBuf对象被JVM GC掉之前，没有调用release()去把底下的DirectByteBuffer或byte[]归还到池里，会导致池越来越大。</li>
+<li>非池化的ByteBuf，即使像DirectByteBuf那样可能会用到System.gc()，但终归会被release掉的，不会出大事。</li>
+</ul>
+<h2 id="四、堆外内存的回收机制"><a href="#四、堆外内存的回收机制" class="headerlink" title="四、堆外内存的回收机制"></a>四、堆外内存的回收机制</h2><h3 id="1、堆外内存"><a href="#1、堆外内存" class="headerlink" title="1、堆外内存"></a>1、堆外内存</h3><p>JVM启动时分配的内存，称为堆内存，与之相对，在代码中可以使用堆外内存，但是这部分内存不归JVM管理，GC算法不会对其进行回收</p>
+<h3 id="2、堆外内存的申请和释放"><a href="#2、堆外内存的申请和释放" class="headerlink" title="2、堆外内存的申请和释放"></a>2、堆外内存的申请和释放</h3><p>JDK的ByteBuffer类提供一个接口allocateDirect(int capacity)进行堆外内存的申请，底层通过unsafe.allocateMemory(size)实现<br><img src="/images/netty/allocateMemory.png" alt="JVM层面堆外内存的分配实现"></p>
+<p>最底层是通过malloc方法申请的，但是这块内存需要进行手动释放，JVM并不会进行回收，Unsafe提供了另一个接口freeMemory可以对申请的堆外内存进行释放。</p>
+<p><img src="/images/netty/freeMemory.png" alt="JVM层面堆外内存的回收实现"></p>
+<h3 id="3、堆外内存的回收机制"><a href="#3、堆外内存的回收机制" class="headerlink" title="3、堆外内存的回收机制"></a>3、堆外内存的回收机制</h3><p>JDK中使用DirectByteBuffer对象来表示堆外内存，每个DirectByteBuffer对象在初始化时，都会创建一个对用的Cleaner对象，这个Cleaner对象会在合适的时候执行unsafe.freeMemory(address)，从而回收这块堆外内存。</p>
+<p>当初始化一块堆外内存时，对象的引用关系如下：<br><img src="/images/netty/初始对象引用关系.png" alt=""><br>其中first是Cleaner类的静态变量，Cleaner对象在初始化时会被添加到Clener链表中，和first形成引用关系，ReferenceQueue是用来保存需要回收的Cleaner对象。</p>
+<p>如果该DirectByteBuffer对象在一次GC中被回收了<br><img src="/images/netty/GC后对象引用关系.png" alt=""><br>此时，只有Cleaner对象唯一保存了堆外内存的数据（开始地址、大小和容量），在下一次FGC时，把该Cleaner对象放入到ReferenceQueue中，并触发clean方法。</p>
+<p>Cleaner对象的clean方法主要有两个作用：<br>1、把自身从Clener链表删除，从而在下次GC时能够被回收<br>2、释放堆外内存</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (address == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// Paranoia</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    unsafe.freeMemory(address);</span><br><span class="line">    address = <span class="number">0</span>;</span><br><span class="line">    Bits.unreserveMemory(size, capacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果JVM一直没有执行FGC的话，无效的Cleaner对象就无法放入到ReferenceQueue中，从而堆外内存也一直得不到释放，内存岂不是会爆？</p>
+<p>其实在初始化DirectByteBuffer对象时，如果当前堆外内存的条件很苛刻时，会主动调用System.gc()强制执行FGC。<br><img src="/images/netty/SystemGC.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+      <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">------本文结束<i class="fa fa-paw"></i>感谢阅读------</div>
+    
+</div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/netty/" rel="tag"># netty</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/24/java/源码/集合源码/hashMap源码分析/" rel="next" title="HashMap源码分析">
+                <i class="fa fa-chevron-left"></i> HashMap源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/26/工具/git使用/" rel="prev" title="git使用">
+                git使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/icon.jpg"
+                alt="vhjy" />
+            
+              <p class="site-author-name" itemprop="name">vhjy</p>
+              <p class="site-description motion-element" itemprop="description">操千曲而后晓声，观千剑而后识器</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、ByteBuf概述"><span class="nav-number">1.</span> <span class="nav-text">一、ByteBuf概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、ByteBuf和ByteBuffer的区别"><span class="nav-number">1.1.</span> <span class="nav-text">1、ByteBuf和ByteBuffer的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、ByteBuf的特点"><span class="nav-number">1.2.</span> <span class="nav-text">2、ByteBuf的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、实现机制"><span class="nav-number">1.3.</span> <span class="nav-text">3、实现机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、四种内存分配方式"><span class="nav-number">2.</span> <span class="nav-text">二、四种内存分配方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、UnpooledHeapByteBuf"><span class="nav-number">2.1.</span> <span class="nav-text">1、UnpooledHeapByteBuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、PooledByteBuf"><span class="nav-number">2.2.</span> <span class="nav-text">2、PooledByteBuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、PooledDirectByteBuf"><span class="nav-number">2.3.</span> <span class="nav-text">3、PooledDirectByteBuf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、UnpooledDirectByteBuf"><span class="nav-number">2.4.</span> <span class="nav-text">4、UnpooledDirectByteBuf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、规避内存泄漏"><span class="nav-number">3.</span> <span class="nav-text">三、规避内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、为什么要有引用计数器"><span class="nav-number">3.1.</span> <span class="nav-text">1、为什么要有引用计数器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、引用计数器常识"><span class="nav-number">3.2.</span> <span class="nav-text">2、引用计数器常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、谁来负责Release"><span class="nav-number">3.3.</span> <span class="nav-text">3、谁来负责Release</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、内存泄漏检测"><span class="nav-number">3.4.</span> <span class="nav-text">4、内存泄漏检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、堆外内存的回收机制"><span class="nav-number">4.</span> <span class="nav-text">四、堆外内存的回收机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、堆外内存"><span class="nav-number">4.1.</span> <span class="nav-text">1、堆外内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、堆外内存的申请和释放"><span class="nav-number">4.2.</span> <span class="nav-text">2、堆外内存的申请和释放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、堆外内存的回收机制"><span class="nav-number">4.3.</span> <span class="nav-text">3、堆外内存的回收机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">vhjy</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">69.0k</span>
+  
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人
+    <span class="post-meta-divider">|</span>
+</span>
+</div>
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
