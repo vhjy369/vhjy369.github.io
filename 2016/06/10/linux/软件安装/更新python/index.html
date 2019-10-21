@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="1、下载解压下载wget https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz 解压tar -zxvf Python-2.7.14.tgz 建安装的文件夹mkdir /usr/local/python2.7.15cd Python-2.7.15 2、安装依赖，修改配置安装依赖yum install openssl openssl-d">
+<meta name="description" content="1、下载解压下载wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz 解压tar -zxvf Python-2.7.16.tgz 建安装的文件夹mkdir /usr/local/python2.7.16cd Python-2.7.16 2、安装依赖，修改配置安装依赖yum install openssl openssl-d">
 <meta name="keywords" content="软件安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux-更新python">
 <meta property="og:url" content="http://yoursite.com/2016/06/10/linux/软件安装/更新python/index.html">
 <meta property="og:site_name" content="vhjy&#39;s Blog">
-<meta property="og:description" content="1、下载解压下载wget https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz 解压tar -zxvf Python-2.7.14.tgz 建安装的文件夹mkdir /usr/local/python2.7.15cd Python-2.7.15 2、安装依赖，修改配置安装依赖yum install openssl openssl-d">
+<meta property="og:description" content="1、下载解压下载wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz 解压tar -zxvf Python-2.7.16.tgz 建安装的文件夹mkdir /usr/local/python2.7.16cd Python-2.7.16 2、安装依赖，修改配置安装依赖yum install openssl openssl-d">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-17T08:37:03.929Z">
+<meta property="og:updated_time" content="2019-09-25T03:26:30.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux-更新python">
-<meta name="twitter:description" content="1、下载解压下载wget https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz 解压tar -zxvf Python-2.7.14.tgz 建安装的文件夹mkdir /usr/local/python2.7.15cd Python-2.7.15 2、安装依赖，修改配置安装依赖yum install openssl openssl-d">
+<meta name="twitter:description" content="1、下载解压下载wget https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz 解压tar -zxvf Python-2.7.16.tgz 建安装的文件夹mkdir /usr/local/python2.7.16cd Python-2.7.16 2、安装依赖，修改配置安装依赖yum install openssl openssl-d">
 
 
 
@@ -421,17 +421,17 @@
       
 
       
-        <script src="/assets/js/APlayer.min.js"> </script><h2 id="1、下载解压"><a href="#1、下载解压" class="headerlink" title="1、下载解压"></a>1、下载解压</h2><p>下载<br>wget <a href="https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz" target="_blank" rel="noopener">https://www.python.org/ftp/python/2.7.14/Python-2.7.14.tgz</a></p>
-<p>解压<br>tar -zxvf Python-2.7.14.tgz</p>
-<p>建安装的文件夹<br>mkdir /usr/local/python2.7.15<br>cd Python-2.7.15</p>
+        <script src="/assets/js/APlayer.min.js"> </script><h2 id="1、下载解压"><a href="#1、下载解压" class="headerlink" title="1、下载解压"></a>1、下载解压</h2><p>下载<br>wget <a href="https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz" target="_blank" rel="noopener">https://www.python.org/ftp/python/2.7.16/Python-2.7.16.tgz</a></p>
+<p>解压<br>tar -zxvf Python-2.7.16.tgz</p>
+<p>建安装的文件夹<br>mkdir /usr/local/python2.7.16<br>cd Python-2.7.16</p>
 <h2 id="2、安装依赖，修改配置"><a href="#2、安装依赖，修改配置" class="headerlink" title="2、安装依赖，修改配置"></a>2、安装依赖，修改配置</h2><p>安装依赖<br>yum install openssl openssl-devel zlib-devel gcc -y</p>
 <p>修改下载包文件<br>vim ./Modules/Setup.dist</p>
 <p>找到#zlib zlibmodule.c -I$(prefix)/include -L$(exec_prefix)/lib -lz去掉注释并保存</p>
-<h2 id="3、编译安装"><a href="#3、编译安装" class="headerlink" title="3、编译安装"></a>3、编译安装</h2><p>./configure –prefix=/usr/local/python2.7.14 –with-zlib<br>make &amp;&amp; make install</p>
+<h2 id="3、编译安装"><a href="#3、编译安装" class="headerlink" title="3、编译安装"></a>3、编译安装</h2><p>./configure –prefix=/usr/local/python2.7.16 –with-zlib<br>make &amp;&amp; make install</p>
 <p>修改链接<br>mv /usr/bin/python /usr/bin/python2.6.6</p>
-<p>ln -s /usr/local/python2.7.15/bin/python2.7 /usr/bin/python2.7</p>
+<p>ln -s /usr/local/python2.7.16/bin/python2.7 /usr/bin/python2.7</p>
 <h2 id="4、修改yum配置文件"><a href="#4、修改yum配置文件" class="headerlink" title="4、修改yum配置文件"></a>4、修改yum配置文件</h2><p>保留旧版本，yum依赖Python2.6，改下yum的配置文件，指定旧的Python版本就可以了。<br>vim /usr/bin/yum，将第一行的#!/usr/bin/python修改成#!/usr/bin/python2.6.6</p>
-<h2 id="5、安装最新版本的pip"><a href="#5、安装最新版本的pip" class="headerlink" title="5、安装最新版本的pip"></a>5、安装最新版本的pip</h2><p>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>python get-pip.py<br>mv /usr/bin/pip /usr/bin/pip2.6.6<br>ln -s /usr/local/python2.7.14/bin/pip2.7 /usr/bin/pip</p>
+<h2 id="5、安装最新版本的pip"><a href="#5、安装最新版本的pip" class="headerlink" title="5、安装最新版本的pip"></a>5、安装最新版本的pip</h2><p>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>python get-pip.py<br>mv /usr/bin/pip /usr/bin/pip2.6.6<br>ln -s /usr/local/python2.7.16/bin/pip2.7 /usr/bin/pip</p>
 
       
     </div>
@@ -565,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">89</span>
+                  <span class="site-state-item-count">107</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -576,7 +576,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -587,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -655,7 +655,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">69.0k</span>
+    <span title="Site words total count">73.5k</span>
   
 </div>
 
